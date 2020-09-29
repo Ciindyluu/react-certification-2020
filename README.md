@@ -30,10 +30,10 @@ $ npm install
 
 # Run the app
 $ npm start
+
+# Login
+$ The login it is not full implemented yet, so, you can access without user and password. Sorry about it.
 ```
-
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
-
 
 ## Credits
 
