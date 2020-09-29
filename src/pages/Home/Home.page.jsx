@@ -13,6 +13,7 @@ import {
   VideoCard,
   VideoMedia,
 } from './Home.styled';
+import { IsoSharp } from '@material-ui/icons';
 
 const HomePage = () => {
   const { authenticated } = useAuth();
@@ -53,7 +54,6 @@ const VideoGrid = () => {
   const [isSearching,setIsSearching]=useState(false)
 
   const searchVideos = () =>{
-    console.log(`Hi Cindy`);
     dispatch(fetchVideos(dispatch));
   }
 
@@ -62,7 +62,7 @@ const VideoGrid = () => {
       searchVideos();
       setIsSearching(true)
     }
-  })
+  }, [isSearching, searchVideos])
 
   return (
       <VideosGridContainer
