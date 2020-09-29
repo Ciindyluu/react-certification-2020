@@ -51,5 +51,6 @@ And finally, special thanks to Wizeline Academy for providing this course and th
 
 ## Contact
 
-> GitHub [@Ciindyluu](https://github.com/Ciindyluu) &nbsp;&middot;&nbsp;
-> Twitter [@HaveYouMetCindy](https://twitter.com/HaveYouMetCindy)
+> LinkedIn [@Cindy Olivas](https://www.linkedin.com/in/cindy-olivas-osuna-8b8661112/) &nbsp;&middot;&nbsp;
+> Twitter [@HaveYouMetCindy](https://twitter.com/HaveYouMetCindy) &nbsp;&middot;&nbsp;
+> GitHub [@Ciindyluu](https://github.com/Ciindyluu)
