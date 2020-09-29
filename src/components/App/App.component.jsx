@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AuthProvider from '../../providers/Auth';
 import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
-import NotFound from '../../pages/NotFound';
+//import NotFound from '../../pages/NotFound';
 import { random } from '../../utils/fns';
 
 function App() {
