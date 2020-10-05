@@ -1,3 +1,5 @@
+/*
+
 import axios from 'axios';
 
 const returnCall=(dispatch)=>{
@@ -11,11 +13,13 @@ const returnCall=(dispatch)=>{
     }).get('/search', { params: {
             q: 'wizeline'
         }
-    }).then(res => res.data)
-    .then(data=>dispatch(fetchedVideos(data.items)))
+    }).then(res => res.data.items)
+    .then(videos=>videos.filter(video=>video.id.kind==='youtube#video'))
+    .then(videos=>dispatch(fetchedVideos(videos)))
 }
+*/
 
-export const fetchVideos = (dispatch) => {
+export const fetchVideos = (dispatch)=>() => {
     setTimeout(function(){
         const videoList=[
             {
@@ -50,34 +54,6 @@ export const fetchVideos = (dispatch) => {
                 "channelTitle": "Wizeline",
                 "liveBroadcastContent": "none",
                 "publishTime": "2020-09-28T18:46:08Z"
-              }
-            },
-            {
-              "kind": "youtube#searchResult",
-              "etag": "5wEMuJOZ0PY8J5Mivo7PW5C8mdo",
-              "id": {
-                "kind": "youtube#channel",
-                "channelId": "UCPGzT4wecuWM0BH9mPiulXg"
-              },
-              "snippet": {
-                "publishedAt": "2014-09-27T01:39:18Z",
-                "channelId": "UCPGzT4wecuWM0BH9mPiulXg",
-                "title": "Wizeline",
-                "description": "Wizeline transforms how teams build technology. Its customers accelerate the delivery of innovative products with proven solutions, which combine Wizeline's ...",
-                "thumbnails": {
-                  "default": {
-                    "url": "https://yt3.ggpht.com/a/AATXAJwYxtvHiokGQH_SOjK3yD21e9JOty04ChmU33rtFA=s88-c-k-c0xffffffff-no-rj-mo"
-                  },
-                  "medium": {
-                    "url": "https://yt3.ggpht.com/a/AATXAJwYxtvHiokGQH_SOjK3yD21e9JOty04ChmU33rtFA=s240-c-k-c0xffffffff-no-rj-mo"
-                  },
-                  "high": {
-                    "url": "https://yt3.ggpht.com/a/AATXAJwYxtvHiokGQH_SOjK3yD21e9JOty04ChmU33rtFA=s800-c-k-c0xffffffff-no-rj-mo"
-                  }
-                },
-                "channelTitle": "Wizeline",
-                "liveBroadcastContent": "upcoming",
-                "publishTime": "2014-09-27T01:39:18Z"
               }
             },
             {
@@ -424,6 +400,7 @@ export const fetchVideos = (dispatch) => {
     
         const videoss=videoList.map(video => {
             const container={}
+            container.id=video.id.videoId;
             container.title= video.snippet.title;
             container.description= video.snippet.description;
             container.img= video.snippet.thumbnails.medium.url;
@@ -437,9 +414,22 @@ export const fetchVideos = (dispatch) => {
 };
 
 const fetchedVideos = (videos) => {
-    console.log(videos);
     return {
         type: 'FETCHED_VIDEOS',
         videos
     }
+};
+
+export const selectVideo=(dispatch)=>(id)=> {
+  dispatch(setCurrentVideo(id))
+return {
+  type:'SET_VIDEO',
+}
+};
+
+const setCurrentVideo=(id)=> {
+return {
+  type:'SET_CURRENT_VIDEO',
+  id
+}
 };

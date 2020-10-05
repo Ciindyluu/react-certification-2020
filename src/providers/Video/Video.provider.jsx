@@ -1,18 +1,32 @@
-import React, { createContext, useReducer } from 'react';
-import { videoReducer } from './videoReducer';
+import React, { createContext, useReducer, useEffect } from 'react';
+import { videoReducer,initialState,videoListStorageKey,videoStorageKey } from './videoReducer';
+import { selectVideo,fetchVideos } from './videoActions';
 
-export const VideoContext = createContext({
-    videos: []
-});
+export const VideoContext = createContext(null);
 
-const VideoProvider = ({children}) => {
-    const [videos, dispatch] = useReducer(videoReducer, []);
+
+export const VideoProvider = ({children}) => {
+    const [state, dispatch] = useReducer(videoReducer,{
+      ...initialState,
+      currentVideo:localStorage.getItem(videoStorageKey)?JSON.parse(localStorage.getItem(videoStorageKey)):null,
+      videos:localStorage.getItem(videoListStorageKey)?JSON.parse(localStorage.getItem(videoListStorageKey)):[]
+    });
+
+    const value={
+      ...state,
+      fetch:fetchVideos(dispatch),
+      setCurrentVideo:selectVideo(dispatch)
+    }
 
     return (
-        <VideoContext.Provider value={{ videos, dispatch }}>
+        <VideoContext.Provider value={value}>
           {children}
         </VideoContext.Provider>
     );
 };
 
-export default VideoProvider;
+function useVideo() {
+    return React.useContext(VideoContext);
+  }
+
+export default useVideo;

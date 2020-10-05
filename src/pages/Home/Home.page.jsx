@@ -1,11 +1,11 @@
 import { CardContent, CssBaseline, Typography } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopNavBar from '../../components/NavBar/NavBar';
 //import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../providers/Auth';
 import Grid from '@material-ui/core/Grid';
-import VideoProvider, {VideoContext} from '../../providers/Video/Video.provider';
-import { fetchVideos } from '../../providers/Video/videoActions';
+import useVideo, { VideoProvider } from '../../providers/Video/Video.provider';
+import { useHistory } from 'react-router-dom';
 
 import {
   VideoContainer,
@@ -13,14 +13,13 @@ import {
   VideoCard,
   VideoMedia,
 } from './Home.styled';
-import { IsoSharp } from '@material-ui/icons';
 
 const HomePage = () => {
-  const { authenticated } = useAuth();
+  const { authenticated,logout } = useAuth();
   return (
     <>
       <CssBaseline />
-      <TopNavBar authenticated={authenticated} />
+      <TopNavBar authenticated={authenticated} logout={logout}/>
       <VideoProvider>
         <VideoGrid />
       </VideoProvider>
@@ -28,55 +27,58 @@ const HomePage = () => {
   );
 };
 
-const VIDEO = ({img, title, description}) => {
+const VIDEO = ({id ,img, title, description,onClickHandler }) => {
   return (
-    <VideoContainer item xs={12} sm={3} >
-          <VideoCard>
-            <VideoMedia
-              image={img}
-              title={title}
-            />
-            <CardContent>
-              <Typography  variant="h6"component="h1">
-                {title}
-              </Typography>
-              <Typography color="textSecondary" variant="body2" component="p">
-                {description}
-              </Typography>
-            </CardContent>
-          </VideoCard>
-        </VideoContainer>
+    <VideoContainer item xs={12} sm={3} onClick={()=>onClickHandler(id)}>
+      <VideoCard>
+        <VideoMedia image={img} title={title} />
+        <CardContent>
+          <Typography variant="h6" component="h1">
+            {title}
+          </Typography>
+          <Typography color="textSecondary" variant="body2" component="p">
+            {description}
+          </Typography>
+        </CardContent>
+      </VideoCard>
+    </VideoContainer>
   );
 };
 
 const VideoGrid = () => {
-  const { dispatch, videos } = useContext(VideoContext);
-  const [isSearching,setIsSearching]=useState(false)
+  const { videos, setCurrentVideo, fetch } = useVideo();
+  const [isSearching, setIsSearching] = useState(false);
+  const {push}=useHistory()
 
-  const searchVideos = () =>{
-    dispatch(fetchVideos(dispatch));
+  const searchVideos = () => {
+    fetch();
+  };
+
+  const onClickHandler=(id)=>{
+    setCurrentVideo(id);
+    push('/video/'+id)
   }
 
   useEffect(() => {
-    if(!isSearching){
+    if (!isSearching) {
       searchVideos();
-      setIsSearching(true)
+      setIsSearching(true);
     }
-  }, [isSearching, searchVideos])
+  }, []);
 
   return (
-      <VideosGridContainer
+    <VideosGridContainer
       container
       direction="row"
       alignItems="center"
       justify="space-around"
-      >
+    >
       <Grid container spacing={3}>
-        {videos.map((video, index) => (
-          <VIDEO key={index} {...video} />
-        ))}
+      {videos.map((video, index) => (
+    <VIDEO key={video.id} {...video} onClickHandler={onClickHandler} />
+  ))}
       </Grid>
-      </VideosGridContainer>
+    </VideosGridContainer>
   );
 };
 

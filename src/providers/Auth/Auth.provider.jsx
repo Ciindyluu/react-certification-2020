@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext, useCallback, useReducer } from 'react';
 
 import { AUTH_STORAGE_KEY } from '../../utils/constants';
-import { storage } from '../../utils/storage';
+import { loginAction,logoutAction } from './AuthActions';
+import { authReducer,initialState } from './AuthReducer';
 
 const AuthContext = React.createContext(null);
 
@@ -14,27 +15,27 @@ function useAuth() {
 }
 
 function AuthProvider({ children }) {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [state, dispatch] = useReducer(authReducer, {...initialState,
+    user: localStorage.getItem(AUTH_STORAGE_KEY) ? JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY)) : null,
+  });
+
+  const value={
+    ...state,
+    login:loginAction(dispatch),
+    logout:logoutAction(dispatch),
+    authenticated:Boolean(state.user)
+  }
 
   useEffect(() => {
-    const lastAuthState = storage.get(AUTH_STORAGE_KEY);
-    const isAuthenticated = Boolean(lastAuthState);
-
-    setAuthenticated(isAuthenticated);
-  }, []);
-
-  const login = useCallback(() => {
-    setAuthenticated(true);
-    storage.set(AUTH_STORAGE_KEY, true);
-  }, []);
-
-  const logout = useCallback(() => {
-    setAuthenticated(false);
-    storage.set(AUTH_STORAGE_KEY, false);
-  }, []);
+    if (state.user) {
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(state.user));
+    } else {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+    }
+  }, [state.user]);
 
   return (
-    <AuthContext.Provider value={{ login, logout, authenticated }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

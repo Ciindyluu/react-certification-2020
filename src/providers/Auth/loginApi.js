@@ -5,6 +5,7 @@ const mockedUser = {
   };
   
   export default async function loginApi(username, password) {
+    console.log('LLEGO')
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (username === 'cindy' && password === 'olivas') {

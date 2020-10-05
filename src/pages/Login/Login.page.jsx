@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../../providers/Auth';
 
@@ -19,12 +19,18 @@ import './Login.styles.js';
 function LoginPage() {
 
   const { login } = useAuth();
+
+  const [username,setUsername]=useState('');
+  const [password,setPassword]=useState('');
+
   const history = useHistory();
 
-  function authenticate(event) {
+  const authenticate=async (event)=> {
     event.preventDefault();
-    login();
-    history.push('/home');
+    const user= await login(username,password);
+    if(user){
+      history.push('/home');
+    }
   }
 
   function Copyright() {
@@ -57,6 +63,8 @@ function LoginPage() {
               id="email"
               label="Username"
               name="email"
+              value={username}
+              onChange={(e)=>setUsername(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -69,6 +77,8 @@ function LoginPage() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
               autoComplete="current-password"
             />
 
