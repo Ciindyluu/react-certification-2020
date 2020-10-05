@@ -34,25 +34,23 @@ export const VideoMedia = styled(CardMedia)`
 
 export const MainVideoDiv = styled.div`
   width: 75%;
-  height: 35%;
-  background-color: black;
+  height: 750px;
   padding: 1%;
 `;
 
 export const MainVideo = styled.div`
-  background-color: pink;
-`;
-
-export const MainVideoTitle = styled(Typography)`
-  padding: 0px 30px;
-  box-sizing: border-box;
-  color: white;
-  height: 10%;
+  width: 100%;
+  height: 600px;
 `;
 
 export const MainVideoDescription = styled(Typography)`
   padding: 0px 30px;
   box-sizing: border-box;
-  color: white;
-  height: 10%;
+`;
+
+export const MainVideoDetails = styled.div`
+  padding: 10px 30px;
+  boxsizing: border-box;
+  display: flex;
+  justify-content: space-between;
 `;

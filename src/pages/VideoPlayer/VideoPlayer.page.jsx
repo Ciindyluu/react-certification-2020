@@ -1,9 +1,11 @@
 import { CardContent, CssBaseline, Typography } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import TopNavBar from '../../components/NavBar/NavBar';
+import IconButton from '@material-ui/core/IconButton';
+import { Favorite } from '@material-ui/icons';
 import { useAuth } from '../../providers/Auth';
-import useVideo, { VideoProvider } from '../../providers/Video/Video.provider';
+import useVideo from '../../providers/Video/Video.provider';
 import {
   MainContainer,
   DivListContainer,
@@ -11,8 +13,8 @@ import {
   MainVideo,
   MainVideoDiv,
   VideoMedia,
-  MainVideoTitle,
-  MainVideoDescription
+  MainVideoDescription,
+  MainVideoDetails,
 } from './VideoPlayer.styled';
 
 const VideoPlayerPage = () => {
@@ -21,45 +23,72 @@ const VideoPlayerPage = () => {
     <>
       <CssBaseline />
       <TopNavBar authenticated={authenticated} />
-      <VideoProvider>
-        <MainContainer>
-          <VideoPlayerContainer />
-          <VideoListContainer />
-        </MainContainer>
-      </VideoProvider>
+      <MainContainer>
+        <VideoPlayerContainer />
+        <VideoListContainer />
+      </MainContainer>
     </>
   );
 };
 
 const VideoPlayerContainer = () => {
-  const { currentVideo } = useVideo();
+  const { currentVideo, isInFavorites, addToFavorites, removeFromFavorites } = useVideo();
+  const favoriteHandler = (video) => {
+    if (isInFavorites(video)) {
+      removeFromFavorites(video);
+    } else {
+      addToFavorites(video);
+    }
+  };
+
   return (
     <MainVideoDiv>
-      <VideoPlayer {...currentVideo}/>
+      <VideoPlayer
+        {...currentVideo}
+        video={currentVideo}
+        inFavorites={isInFavorites}
+        favoriteHandler={favoriteHandler}
+      />
     </MainVideoDiv>
   );
 };
 
-const VideoPlayer = ({id,title,description}) => {
+const VideoPlayer = ({ video, id, title, description, inFavorites, favoriteHandler }) => {
   return (
     <>
       <MainVideo>
-      <iframe title="video" width="100%" height="500px" src={`https://www.youtube.com/embed/${id}`} />
+        <iframe
+          title="video"
+          width="100%"
+          height="600px"
+          src={`https://www.youtube.com/embed/${id}`}
+        />
       </MainVideo>
-  <MainVideoTitle>{title}</MainVideoTitle>
-  <MainVideoDescription>{description}</MainVideoDescription>
+      <MainVideoDetails>
+        <Typography variant="h6">
+          {title}
+        </Typography>
+        <IconButton color="inherit" onClick={() => favoriteHandler(video)}>
+          <Favorite />
+          <Typography variant="subtitle1">
+            {' '}
+            {inFavorites(video) ? 'Remove from Favorites' : 'Add to Favorites'}
+          </Typography>
+        </IconButton>
+      </MainVideoDetails>
+      <MainVideoDescription>{description}</MainVideoDescription>
     </>
   );
 };
 
 const VideoListContainer = () => {
-  const { videos,setCurrentVideo } = useVideo();
-  const {push}=useHistory()
-  const onClickHandler=(id)=>{
+  const { videos, setCurrentVideo } = useVideo();
+  const { push } = useHistory();
+  const onClickHandler = (id) => {
     setCurrentVideo(id);
-    push('/video/'+id);
-  }
-  
+    push('/video/' + id);
+  };
+
   return (
     <DivListContainer>
       {videos.map((video, index) => (
@@ -69,9 +98,9 @@ const VideoListContainer = () => {
   );
 };
 
-const VideoRow = ({ id,img, title,onClickHandler }) => {
+const VideoRow = ({ id, img, title, onClickHandler }) => {
   return (
-    <DivListRow onClick={()=>onClickHandler(id)}>
+    <DivListRow onClick={() => onClickHandler(id)}>
       <VideoMedia image={img} />
       <CardContent>
         <Typography variant="subtitle1">{title}</Typography>

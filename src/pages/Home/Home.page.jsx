@@ -1,63 +1,38 @@
-import { CardContent, CssBaseline, Typography } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import TopNavBar from '../../components/NavBar/NavBar';
-//import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../providers/Auth';
 import Grid from '@material-ui/core/Grid';
-import useVideo, { VideoProvider } from '../../providers/Video/Video.provider';
+import useVideo from '../../providers/Video/Video.provider';
 import { useHistory } from 'react-router-dom';
 
-import {
-  VideoContainer,
-  VideosGridContainer,
-  VideoCard,
-  VideoMedia,
-} from './Home.styled';
+import { VideosGridContainer } from '../../components/Video/VideoGrid/Home.styled';
+import VideoItem from '../../components/Video/VideoGrid/VideoItem';
 
 const HomePage = () => {
-  const { authenticated,logout } = useAuth();
+  const { authenticated, logout } = useAuth();
   return (
     <>
       <CssBaseline />
-      <TopNavBar authenticated={authenticated} logout={logout}/>
-      <VideoProvider>
-        <VideoGrid />
-      </VideoProvider>
+      <TopNavBar authenticated={authenticated} logout={logout} />
+      <VideoGrid />
     </>
   );
 };
 
-const VIDEO = ({id ,img, title, description,onClickHandler }) => {
-  return (
-    <VideoContainer item xs={12} sm={3} onClick={()=>onClickHandler(id)}>
-      <VideoCard>
-        <VideoMedia image={img} title={title} />
-        <CardContent>
-          <Typography variant="h6" component="h1">
-            {title}
-          </Typography>
-          <Typography color="textSecondary" variant="body2" component="p">
-            {description}
-          </Typography>
-        </CardContent>
-      </VideoCard>
-    </VideoContainer>
-  );
-};
-
 const VideoGrid = () => {
-  const { videos, setCurrentVideo, fetch } = useVideo();
+  const { videos, searchTerm, setCurrentVideo, fetch } = useVideo();
   const [isSearching, setIsSearching] = useState(false);
-  const {push}=useHistory()
+  const { push } = useHistory();
 
   const searchVideos = () => {
-    fetch();
+    fetch(searchTerm);
   };
 
-  const onClickHandler=(id)=>{
+  const onClickHandler = (id) => {
     setCurrentVideo(id);
-    push('/video/'+id)
-  }
+    push('/video/' + id);
+  };
 
   useEffect(() => {
     if (!isSearching) {
@@ -65,7 +40,6 @@ const VideoGrid = () => {
       setIsSearching(true);
     }
   }, []);
-
   return (
     <VideosGridContainer
       container
@@ -74,9 +48,9 @@ const VideoGrid = () => {
       justify="space-around"
     >
       <Grid container spacing={3}>
-      {videos.map((video, index) => (
-    <VIDEO key={video.id} {...video} onClickHandler={onClickHandler} />
-  ))}
+        {videos.map((video) => (
+          <VideoItem key={video.id} {...video} onClickHandler={onClickHandler} />
+        ))}
       </Grid>
     </VideosGridContainer>
   );

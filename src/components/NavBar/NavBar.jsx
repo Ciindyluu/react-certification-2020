@@ -1,5 +1,5 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
+import React, { useState } from 'react';
+import { AppBar } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +11,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { NavBarStyles } from './NavBar.styles';
 import { Favorite } from '@material-ui/icons';
+import HomeIcon from '@material-ui/icons/Home';
 import { useHistory } from 'react-router-dom';
+import useVideo from '../../providers/Video/Video.provider';
 
 function TopNavBar({ authenticated, logout }) {
+  const { searchTerm, setSearchTerm } = useVideo();
+  const [searchHandler, setSearchHandler] = useState(searchTerm);
+
   const history = useHistory();
   const classes = NavBarStyles();
   const [anchorEl, setAnchorElement] = React.useState(null);
@@ -87,7 +92,7 @@ function TopNavBar({ authenticated, logout }) {
           aria-haspopup="true"
           color="inherit"
         >
-        <AccountCircle />
+          <AccountCircle />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -98,7 +103,7 @@ function TopNavBar({ authenticated, logout }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           {authenticated ? (
             <Typography className={classes.title} variant="h6" noWrap>
@@ -115,6 +120,13 @@ function TopNavBar({ authenticated, logout }) {
             </div>
             <InputBase
               placeholder="Search…"
+              defaultValue={searchHandler}
+              onChange={(e) => setSearchHandler(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  setSearchTerm(searchHandler);
+                }
+              }}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -124,6 +136,18 @@ function TopNavBar({ authenticated, logout }) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              color="inherit"
+              onClick={() => push('/home')}
+              className={classes.icon}
+            >
+              <HomeIcon />
+            </IconButton>
+
             {authenticated ? (
               <IconButton
                 edge="end"
@@ -132,6 +156,7 @@ function TopNavBar({ authenticated, logout }) {
                 aria-haspopup="true"
                 color="inherit"
                 onClick={() => push('/favorites')}
+                className={classes.icon}
               >
                 <Favorite />
               </IconButton>
@@ -146,6 +171,7 @@ function TopNavBar({ authenticated, logout }) {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              className={classes.icon}
             >
               <AccountCircle />
             </IconButton>
@@ -157,6 +183,7 @@ function TopNavBar({ authenticated, logout }) {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
+              className={classes.icon}
             >
               <MoreIcon />
             </IconButton>

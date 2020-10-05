@@ -1,14 +1,18 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 export const NavBarStyles = makeStyles((theme) => ({
-    grow: {
+  root: {
+    backgroundColor: "#4F4E4E"
+  },
+  icon: {
+    marginLeft: '10px',
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    }
+  },
+  grow: {
       flexGrow: 1,
     },
-    /*
-        menuButton: {
-            marginRight: theme.spacing(2),
-        },
-    */
     title: {
       display: 'none',
       [theme.breakpoints.up('sm')]: {

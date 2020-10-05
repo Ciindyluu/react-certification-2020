@@ -1,27 +1,9 @@
-/*
-
 import axios from 'axios';
 
-const returnCall=(dispatch)=>{
-    axios.create({
-        baseURL: 'https://www.googleapis.com/youtube/v3',
-        params: {
-            part: 'snippet',
-            maxResults: 12,
-            //key: 'AIzaSyDeJouzp-DiPx2wO0YfgynKCwyw0L06jSs'
-        }
-    }).get('/search', { params: {
-            q: 'wizeline'
-        }
-    }).then(res => res.data.items)
-    .then(videos=>videos.filter(video=>video.id.kind==='youtube#video'))
-    .then(videos=>dispatch(fetchedVideos(videos)))
-}
-*/
-
-export const fetchVideos = (dispatch)=>() => {
+export const FakefetchVideos = (dispatch)=>(searchTerm) => {
     setTimeout(function(){
-        const videoList=[
+        const videoList=
+        [
             {
               "kind": "youtube#searchResult",
               "etag": "8BmkNXYwL9eD0e5Q86KgW_r01GM",
@@ -413,6 +395,33 @@ export const fetchVideos = (dispatch)=>() => {
     }
 };
 
+export const fetchVideos = (dispatch)=>(searchTerm) => {
+  axios.create({
+    baseURL: 'https://www.googleapis.com/youtube/v3',
+    params: {
+        part: 'snippet',
+        maxResults: 16,
+        type:'video',
+        key: 'AIzaSyDeJouzp-DiPx2wO0YfgynKCwyw0L06jSs'
+    }
+}).get('/search', { params: {
+        q: searchTerm
+    }
+}).then(res => res.data.items)
+.then(videos=>videos.map(video => {
+  const container={}
+  container.id=video.id.videoId;
+  container.title= video.snippet.title;
+  container.description= video.snippet.description;
+  container.img= video.snippet.thumbnails.medium.url;
+  return container
+}))
+.then(videos=>dispatch(fetchedVideos(videos)))
+    return {
+        type: 'FETCH_VIDEOS'
+    }
+};
+
 const fetchedVideos = (videos) => {
     return {
         type: 'FETCHED_VIDEOS',
@@ -432,4 +441,25 @@ return {
   type:'SET_CURRENT_VIDEO',
   id
 }
+};
+
+export const addToFavorites=(dispatch)=>(video)=>{
+  dispatch({
+    type:'ADD_FAVORITE',
+    video
+  });
+};
+
+export const removeFromFavorites=(dispatch)=>(video)=>{
+  dispatch({
+    type:'REMOVE_FAVORITE',
+    video
+  });
+};
+
+export const setSearchTerm=(dispatch)=>(searchTerm)=>{
+  dispatch({
+    type:'SET_SEARCH_TERM',
+    searchTerm
+  });
 };
