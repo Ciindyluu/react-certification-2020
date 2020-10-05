@@ -40,11 +40,6 @@ function TopNavBar({ authenticated, logout }) {
     handleMobileMenuClose();
   };
 
-  const handleGoToLogin = () => {
-    handleMenuClose();
-    history.push('/');
-  };
-
   const handleLogout = () => {
     logout();
     handleMenuClose();
@@ -66,11 +61,7 @@ function TopNavBar({ authenticated, logout }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {authenticated ? (
-        <MenuItem onClick={handleLogout}> Log Out</MenuItem>
-      ) : (
-        <MenuItem onClick={handleGoToLogin}> Log In</MenuItem>
-      )}
+      <MenuItem onClick={handleLogout}> Log Out</MenuItem>
     </Menu>
   );
 
@@ -141,8 +132,8 @@ function TopNavBar({ authenticated, logout }) {
             >
               <HomeIcon />
             </IconButton>
-
-            {authenticated ? (
+            
+            {authenticated && (
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -154,8 +145,6 @@ function TopNavBar({ authenticated, logout }) {
               >
                 <Favorite />
               </IconButton>
-            ) : (
-              ''
             )}
 
             <IconButton

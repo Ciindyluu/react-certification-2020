@@ -12,7 +12,6 @@ import {
   addToFavorites,
   removeFromFavorites,
   setSearchTerm
-  //FakefetchVideos
 } from './videoActions';
 
 export const VideoContext = createContext(null);

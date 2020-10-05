@@ -5,7 +5,6 @@ import { useAuth } from '../../providers/Auth';
 import Grid from '@material-ui/core/Grid';
 import useVideo from '../../providers/Video/Video.provider';
 import { useHistory } from 'react-router-dom';
-
 import { VideosGridContainer } from '../../components/Video/VideoGrid/Home.styled';
 import VideoItem from '../../components/Video/VideoGrid/VideoItem';
 

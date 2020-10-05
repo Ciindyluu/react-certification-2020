@@ -32,7 +32,8 @@ $ npm install
 $ npm start
 
 # Login
-$ The login it is not full implemented yet, so, you can access without user and password. Sorry about it.
+$ user: cindy
+$ password: olivas
 ```
 
 ## Credits
