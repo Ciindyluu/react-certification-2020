@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../../providers/Auth';
-
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import LinkMaterial from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -17,26 +15,27 @@ import { signInStyles } from './Login.styles';
 import './Login.styles.js';
 
 function LoginPage() {
-
   const { login } = useAuth();
 
-  const [username,setUsername]=useState('');
-  const [password,setPassword]=useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const history = useHistory();
 
-  const authenticate=async (event)=> {
+  const authenticate = async (event) => {
     event.preventDefault();
-    const user= await login(username,password);
-    if(user){
+    const user = await login(username, password);
+    if (user) {
       history.push('/home');
     }
-  }
+  };
 
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © Cindy Olivas '}{new Date().getFullYear()}{'.'}
+        {'Copyright © Cindy Olivas '}
+        {new Date().getFullYear()}
+        {'.'}
       </Typography>
     );
   }
@@ -64,7 +63,7 @@ function LoginPage() {
               label="Username"
               name="email"
               value={username}
-              onChange={(e)=>setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -78,10 +77,9 @@ function LoginPage() {
               type="password"
               id="password"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
             />
-
             <Button
               type="submit"
               fullWidth
@@ -91,13 +89,6 @@ function LoginPage() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <LinkMaterial href='home' variant="body2">
-                Continue to Home without sign in!
-                </LinkMaterial>
-              </Grid>
-            </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>

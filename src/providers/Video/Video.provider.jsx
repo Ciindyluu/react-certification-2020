@@ -11,8 +11,8 @@ import {
   fetchVideos,
   addToFavorites,
   removeFromFavorites,
-  setSearchTerm,
-  FakefetchVideos,
+  setSearchTerm
+  //FakefetchVideos
 } from './videoActions';
 
 export const VideoContext = createContext(null);

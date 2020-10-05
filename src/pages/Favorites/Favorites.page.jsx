@@ -32,7 +32,7 @@ const VideoGrid = () => {
   if (favoriteVideos.length === 0) {
     return (
       <Alert severity="error" style={{ margin: 50 }}>
-        Here goes your favorites videos!
+        You have not add any favorite video yet!
       </Alert>
     );
   };

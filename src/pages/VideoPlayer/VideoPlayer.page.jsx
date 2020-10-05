@@ -40,7 +40,7 @@ const VideoPlayerContainer = () => {
       addToFavorites(video);
     }
   };
-
+  
   return (
     <MainVideoDiv>
       <VideoPlayer

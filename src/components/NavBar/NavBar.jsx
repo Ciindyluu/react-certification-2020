@@ -105,15 +105,9 @@ function TopNavBar({ authenticated, logout }) {
     <div className={classes.grow}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-          {authenticated ? (
-            <Typography className={classes.title} variant="h6" noWrap>
-              Welcome!
-            </Typography>
-          ) : (
-            <Typography className={classes.title} variant="h6" noWrap>
-              Welcome back Cindy!
-            </Typography>
-          )}
+          <Typography className={classes.title} variant="h6" noWrap>
+            Welcome back Cindy!
+          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
