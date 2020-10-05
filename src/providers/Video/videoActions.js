@@ -1,4 +1,5 @@
 import axios from 'axios';
+import he from 'he';
 
 export const fetchVideos = (dispatch) => (searchTerm) => {
   const { REACT_APP_YOUTUBE_KEY } = process.env;
@@ -22,8 +23,8 @@ export const fetchVideos = (dispatch) => (searchTerm) => {
       videos.map((video) => {
         const container = {};
         container.id = video.id.videoId;
-        container.title = video.snippet.title;
-        container.description = video.snippet.description;
+        container.title = he.decode(video.snippet.title);
+        container.description = he.decode(video.snippet.description);
         container.img = video.snippet.thumbnails.medium.url;
         return container;
       })
