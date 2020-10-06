@@ -19,6 +19,7 @@ function LoginPage() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
 
   const history = useHistory();
 
@@ -27,6 +28,8 @@ function LoginPage() {
     const user = await login(username, password);
     if (user) {
       history.push('/home');
+    } else {
+      setLoginError(true);
     }
   };
 
@@ -66,7 +69,7 @@ function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="email"
               autoFocus
-              inputProps={{id:'username', 'data-testid': 'username'}}
+              inputProps={{ id: 'username', 'data-testid': 'username' }}
             />
             <TextField
               variant="outlined"
@@ -80,7 +83,7 @@ function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
-              inputProps={{id:'password', 'data-testid': 'password'}}
+              inputProps={{ id: 'password', 'data-testid': 'password' }}
             />
             <Button
               type="submit"
@@ -90,8 +93,20 @@ function LoginPage() {
               className={classes.submit}
             >
               Sign In
-            </Button>
-            <Box mt={5}>
+            </Button>{' '}
+            <br />
+            {loginError && (
+              <Typography variant="body2" color="textSecondary" align="center">
+                <Box fontWeight="fontWeightBold" m={1}>
+                  Invalid user o password. Please try with the following data.
+                </Box>
+                <Box fontWeight="fontWeightRegular" m={1}>
+                  User: cindy <br />
+                  Password: olivas
+                </Box> <br /><br />
+              </Typography>
+            )}
+            <Box mt={1}>
               <Copyright />
             </Box>
           </form>

@@ -70,7 +70,7 @@ const VideoPlayer = ({ video, id, title, description, inFavorites, favoriteHandl
           <Typography variant="subtitle1">
             {inFavorites(video) ? 'Remove from Favorites' : 'Add to Favorites'}
           </Typography>
-          <Favorite />
+          <Favorite style={{fill: "red"}} />
         </IconButton>
       </MainVideoDetails>
       <MainVideoDescription>{description}</MainVideoDescription>
