@@ -76,17 +76,30 @@ function TopNavBar({ authenticated, logout }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <IconButton
+        edge="end"
+        aria-label="account of current user"
+        aria-controls={menuId}
+        aria-haspopup="true"
+        color="inherit"
+        onClick={() => push('/home')}
+        className={classes.icon}
+      >
+        <HomeIcon />
+      </IconButton>
+      <br />
+      <IconButton
+        edge="end"
+        aria-label="account of current user"
+        aria-controls={menuId}
+        aria-haspopup="true"
+        color="inherit"
+        onClick={() => push('/favorites')}
+        className={classes.icon}
+      >
+        <Favorite />
+      </IconButton>
+      <MenuItem onClick={handleLogout}> Log Out</MenuItem>
     </Menu>
   );
 
@@ -139,19 +152,17 @@ function TopNavBar({ authenticated, logout }) {
               <HomeIcon />
             </IconButton>
 
-            {authenticated && (
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                color="inherit"
-                onClick={() => push('/favorites')}
-                className={classes.icon}
-              >
-                <Favorite />
-              </IconButton>
-            )}
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              color="inherit"
+              onClick={() => push('/favorites')}
+              className={classes.icon}
+            >
+              <Favorite />
+            </IconButton>
 
             <IconButton
               edge="end"
