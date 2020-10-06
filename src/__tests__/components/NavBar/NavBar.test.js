@@ -8,26 +8,25 @@ import AuthProvider from '../../../providers/Auth/Auth.provider';
 import { shallow, mount, render } from 'enzyme';
 
 const customProvider = (ui) => {
-    return render(
-      <BrowserRouter>
-        <AuthProvider>
-          <VideoProvider>{ui}</VideoProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    );
-  };
+  return render(
+    <BrowserRouter>
+      <AuthProvider>
+        <VideoProvider>{ui}</VideoProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  );
+};
 
-  const state = {
-    authenticated: true,
-    logout: false,
-    searchTerm: 'wizeline',
-    searchHandler: 'wizeline'
-  }
+const state = {
+  authenticated: true,
+  logout: false,
+  searchTerm: 'wizeline',
+  searchHandler: 'wizeline',
+};
 
-  describe('<TopNavBar />', () => {
-    it('renders a div fpr search input', () => {
-        const wrapper = shallow(<div className="classes.search" />);
-        expect(wrapper.html()).to.contain('div');
-      });
-
+describe('<TopNavBar />', () => {
+  it('renders a div fpr search input', () => {
+    const wrapper = shallow(<div className="classes.search" />);
+    expect(wrapper.html()).to.contain('div');
   });
+});

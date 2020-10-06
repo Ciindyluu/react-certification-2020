@@ -64,13 +64,13 @@ const VideoPlayer = ({ video, id, title, description, inFavorites, favoriteHandl
           src={`https://www.youtube.com/embed/${id}`}
         />
       </MainVideo>
-      <MainVideoDetails inputprops= {{'data-testid': 'favorite'}}>
+      <MainVideoDetails inputprops={{ 'data-testid': 'favorite' }}>
         <Typography variant="h6">{title}</Typography>
-        <IconButton color="inherit" onClick={() => favoriteHandler(video)} >
+        <IconButton color="inherit" onClick={() => favoriteHandler(video)}>
           <Typography variant="subtitle1">
             {inFavorites(video) ? 'Remove from Favorites' : 'Add to Favorites'}
           </Typography>
-          <Favorite style={{fill: "red"}} />
+          <Favorite style={{ fill: 'red' }} />
         </IconButton>
       </MainVideoDetails>
       <MainVideoDescription>{description}</MainVideoDescription>

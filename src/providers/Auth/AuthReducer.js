@@ -6,7 +6,6 @@ export const initialState = {
 };
 
 export function authReducer(state, action) {
-
   switch (action.type) {
     case 'LOGIN':
       return {
@@ -15,7 +14,7 @@ export function authReducer(state, action) {
         error: false,
       };
     case 'LOGIN_SUCCESS':
-      localStorage.setItem(AUTH_STORAGE_KEY,JSON.stringify(action.user))
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(action.user));
       return {
         ...state,
         loading: false,
@@ -28,7 +27,7 @@ export function authReducer(state, action) {
         error: action.error,
       };
     case 'LOGOUT':
-      localStorage.removeItem(AUTH_STORAGE_KEY)
+      localStorage.removeItem(AUTH_STORAGE_KEY);
       return {
         ...initialState,
       };

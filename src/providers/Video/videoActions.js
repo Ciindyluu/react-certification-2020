@@ -10,7 +10,7 @@ export const fetchVideos = (dispatch) => (searchTerm) => {
       params: {
         part: 'snippet',
         maxResults: 16,
-        type: 'video'
+        type: 'video',
       },
     })
     .get(`/search?key=${REACT_APP_YOUTUBE_KEY}`, {

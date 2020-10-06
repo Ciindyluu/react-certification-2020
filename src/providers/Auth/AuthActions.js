@@ -8,13 +8,13 @@ export const loginAction = (dispatch) => async (username, password) => {
 
     dispatch({
       type: 'LOGIN_SUCCESS',
-      user
+      user,
     });
     return user;
   } catch (error) {
     dispatch({
       type: 'LOGIN_ERROR',
-      error: error.message
+      error: error.message,
     });
     return null;
   }

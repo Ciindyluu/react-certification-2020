@@ -103,7 +103,9 @@ function LoginPage() {
                 <Box fontWeight="fontWeightRegular" m={1}>
                   User: cindy <br />
                   Password: olivas
-                </Box> <br /><br />
+                </Box>{' '}
+                <br />
+                <br />
               </Typography>
             )}
             <Box mt={1}>

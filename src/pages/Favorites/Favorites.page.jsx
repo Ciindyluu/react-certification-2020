@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import useVideo from '../../providers/Video/Video.provider';
 import { useHistory } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
-import {VideosGridContainer} from '../../components/Video/VideoGrid/Home.styled';
+import { VideosGridContainer } from '../../components/Video/VideoGrid/Home.styled';
 import VideoItem from '../../components/Video/VideoGrid/VideoItem';
 
 const FavoritesPage = () => {
@@ -14,8 +14,8 @@ const FavoritesPage = () => {
   return (
     <>
       <CssBaseline />
-        <TopNavBar authenticated={authenticated} logout={logout} />
-        <VideoGrid />
+      <TopNavBar authenticated={authenticated} logout={logout} />
+      <VideoGrid />
     </>
   );
 };
@@ -35,7 +35,7 @@ const VideoGrid = () => {
         You have not add any favorite video yet!
       </Alert>
     );
-  };
+  }
 
   return (
     <VideosGridContainer

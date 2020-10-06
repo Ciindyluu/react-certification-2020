@@ -6,7 +6,6 @@ export const VideosGridContainer = styled(Grid)`
   width: 100%;
 `;
 
-
 export const VideoContainer = styled(Grid)`
   padding: 2%;
 `;
@@ -15,8 +14,8 @@ export const VideoCard = styled(Card)`
   height: 380px;
   width: 400px;
   &:hover {
-    border: 3px solid #66B3B8;
-    color: #66B3B8;
+    border: 3px solid #66b3b8;
+    color: #66b3b8;
   }
 `;
 
