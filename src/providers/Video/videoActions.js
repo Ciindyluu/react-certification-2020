@@ -35,7 +35,7 @@ export const fetchVideos = (dispatch) => (searchTerm) => {
   };
 };
 
-const fetchedVideos = (videos) => {
+export const fetchedVideos = (videos) => {
   return {
     type: 'FETCHED_VIDEOS',
     videos,
@@ -49,7 +49,7 @@ export const selectVideo = (dispatch) => (id) => {
   };
 };
 
-const setCurrentVideo = (id) => {
+export const setCurrentVideo = (id) => {
   return {
     type: 'SET_CURRENT_VIDEO',
     id,

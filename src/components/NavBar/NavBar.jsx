@@ -94,7 +94,7 @@ function TopNavBar({ authenticated, logout }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.root}>
+      <AppBar position="static" className={classes.root} title="topnavbar" inputProps= {{id:'topnavbar', 'data-testid': 'topnavbar'}}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             Welcome back Cindy!
@@ -105,6 +105,7 @@ function TopNavBar({ authenticated, logout }) {
             </div>
             <InputBase
               placeholder="Search…"
+              data-testid="search-box"
               defaultValue={searchHandler}
               onChange={(e) => setSearchHandler(e.target.value)}
               onKeyPress={(e) => {

@@ -40,7 +40,7 @@ const VideoPlayerContainer = () => {
       addToFavorites(video);
     }
   };
-  
+
   return (
     <MainVideoDiv>
       <VideoPlayer
@@ -64,16 +64,13 @@ const VideoPlayer = ({ video, id, title, description, inFavorites, favoriteHandl
           src={`https://www.youtube.com/embed/${id}`}
         />
       </MainVideo>
-      <MainVideoDetails>
-        <Typography variant="h6">
-          {title}
-        </Typography>
-        <IconButton color="inherit" onClick={() => favoriteHandler(video)}>
-          <Favorite />
+      <MainVideoDetails inputprops= {{'data-testid': 'favorite'}}>
+        <Typography variant="h6">{title}</Typography>
+        <IconButton color="inherit" onClick={() => favoriteHandler(video)} >
           <Typography variant="subtitle1">
-            {' '}
             {inFavorites(video) ? 'Remove from Favorites' : 'Add to Favorites'}
           </Typography>
+          <Favorite />
         </IconButton>
       </MainVideoDetails>
       <MainVideoDescription>{description}</MainVideoDescription>

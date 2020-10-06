@@ -60,12 +60,13 @@ function LoginPage() {
               required
               fullWidth
               id="email"
-              label="Username"
+              label="username"
               name="email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="email"
               autoFocus
+              inputProps={{id:'username', 'data-testid': 'username'}}
             />
             <TextField
               variant="outlined"
@@ -73,12 +74,13 @@ function LoginPage() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="password"
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
+              inputProps={{id:'password', 'data-testid': 'password'}}
             />
             <Button
               type="submit"
